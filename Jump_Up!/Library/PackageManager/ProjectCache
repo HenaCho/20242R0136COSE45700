@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638632782525876401
-    m_Hash: 2033820944
+      ticks: 638632789821639805
+    m_Hash: 991950457
   m_LockFileStatus:
     m_FilePath: "D:/KU_CSE/KU_Code/2024-2/\uC2E4\uC804SW\uD504\uB85C\uC81D\uD2B8/Jump_Up/Jump_Up!/Packages/packages-lock.json"
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638632782526386118
-    m_Hash: 2687928020
+      ticks: 638632789821639805
+    m_Hash: 880968913
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
