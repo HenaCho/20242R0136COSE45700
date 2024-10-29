@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; // 씬 재시작을 위한 네임스페이스
+
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
@@ -10,6 +12,9 @@ public class PlayerController : MonoBehaviour
     private float maxForce = 10f;       // 최대 점프 힘 (거리로 계산)
     private float gravityScale = 1f;         // 기본 중력 스케일
     private float fallMultiplier = 2.5f;     // 가속도 증가 비율
+    private bool isGrounded = false;       // 착지 여부를 나타내는 변수
+    [SerializeField]
+    private float deathHeight = -10f;       // 플레이어가 죽는 높이 (y 좌표)
 
     void Start()
     {
@@ -27,7 +32,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // 드래그를 놓으면 점프
-        if (Input.GetMouseButtonUp(0) && isDragging)
+        if (Input.GetMouseButtonUp(0) && isDragging && isGrounded)
         {
             endPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Jump();
@@ -35,6 +40,12 @@ public class PlayerController : MonoBehaviour
         }
 
         ApplyAcceleration();
+
+        // 플레이어가 특정 높이 이하로 떨어지면 죽음 처리
+        if (transform.position.y < deathHeight)
+        {
+            Die();
+        }
     }
 
     void Jump()
@@ -45,6 +56,8 @@ public class PlayerController : MonoBehaviour
         float jumpForce = Mathf.Clamp(jumpDistance, 0, maxForce); // 최대 힘을 초과하지 않도록 제한
 
         rb.AddForce(jumpDirection * jumpForce, ForceMode2D.Impulse); // 힘을 이용해 점프
+
+        isGrounded = false;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -53,16 +66,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Platform"))
         {
             rb.velocity = Vector2.zero;  // 착지 시 속도 초기화
-        }
-    }
-
-    void OnDrawGizmos()
-    {
-        // 드래그 중이라면 방향과 힘을 시각적으로 보여줌
-        if (isDragging)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(startPoint, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            isGrounded = true;
         }
     }
 
@@ -79,5 +83,11 @@ public class PlayerController : MonoBehaviour
             // 점프 시나 상승 중일 때는 기본 중력만 적용
             rb.gravityScale = gravityScale;
         }
+    }
+
+    void Die()
+    {
+        // 현재 씬을 다시 로드하여 게임 재시작
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
