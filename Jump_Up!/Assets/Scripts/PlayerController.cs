@@ -6,20 +6,21 @@ using UnityEngine.SceneManagement; // 씬 재시작을 위한 네임스페이스
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private Vector2 startPoint;         // 드래그 시작 위치
-    private Vector2 endPoint;           // 드래그 끝 위치
+    private Vector2 startPoint; // 드래그 시작 위치
+    private Vector2 endPoint;   // 드래그 끝 위치
     private bool isDragging = false;    // 드래그 중인지 여부
-    private float maxForce = 10f;       // 최대 점프 힘 (거리로 계산)
-    private float gravityScale = 1f;         // 기본 중력 스케일
-    private float fallMultiplier = 2.5f;     // 가속도 증가 비율
-    private bool isGrounded = false;       // 착지 여부를 나타내는 변수
     [SerializeField]
-    private float deathHeight = -10f;       // 플레이어가 죽는 높이 (y 좌표)
+    private float maxForce = 10f;   // 최대 점프 힘 (거리로 계산)
+    private float gravityScale = 1f;    // 기본 중력 스케일
+    private float fallMultiplier = 2.5f;    // 가속도 증가 비율
+    private bool isGrounded = false;    // 착지 여부를 나타내는 변수
+    [SerializeField]
+    private float deathHeight = -10f;   // 플레이어가 죽는 높이 (y 좌표)
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.gravityScale = gravityScale;      // 초기 중력 스케일 설정
+        rb.gravityScale = gravityScale; // 초기 중력 스케일 설정
     }
 
     void Update()
