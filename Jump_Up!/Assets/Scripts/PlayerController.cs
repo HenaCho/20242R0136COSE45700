@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement; // 씬 재시작을 위한 네임스페이스
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private Vector2 startPoint; // 드래그 시작 위치
+    private Vector2 startPoint; // 드래그 시작 위치 (항상 플레이어 위치)
     private Vector2 endPoint;   // 드래그 끝 위치
     private bool isDragging = false;    // 드래그 중인지 여부
     [SerializeField]
@@ -25,17 +25,17 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // 마우스 버튼을 눌렀을 때 드래그 시작 지점 설정
+        // 마우스 버튼을 눌렀을 때 드래그 시작
         if (Input.GetMouseButtonDown(0))
         {
-            startPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            startPoint = transform.position; // 드래그 시작점을 항상 플레이어 위치로 설정
             isDragging = true;
         }
 
         // 드래그를 놓으면 점프
         if (Input.GetMouseButtonUp(0) && isDragging && isGrounded)
         {
-            endPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            endPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition); // 드래그 끝점 설정
             Jump();
             isDragging = false;
         }
@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        // 드래그 시작 지점과 끝 지점의 차이로 점프 방향과 힘을 계산
+        // 드래그 시작 지점(플레이어 위치)과 끝 지점의 차이로 점프 방향과 힘을 계산
         Vector2 jumpDirection = (startPoint - endPoint).normalized;
         float jumpDistance = Vector2.Distance(startPoint, endPoint);
         float jumpForce = Mathf.Clamp(jumpDistance, 0, maxForce); // 최대 힘을 초과하지 않도록 제한
