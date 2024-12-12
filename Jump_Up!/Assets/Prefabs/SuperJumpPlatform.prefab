@@ -172,4 +172,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boostedMaxForce: 15
-  boostedColor: {r: 1, g: 0, b: 0, a: 1}
+  boostedColor: {r: 0, g: 1, b: 0, a: 1}

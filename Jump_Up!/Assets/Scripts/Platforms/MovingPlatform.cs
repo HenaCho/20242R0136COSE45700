@@ -12,24 +12,23 @@ public class MovingPlatform : MonoBehaviour
     private float speed = 2f; // 플랫폼 이동 속도
 
     private bool movingRight = true; // 플랫폼이 오른쪽으로 이동 중인지 여부
+    private Vector3 previousPosition; // 이전 프레임의 위치
+    public Vector3 CurrentVelocity { get; private set; } // 현재 플랫폼의 속도
 
     void Start()
     {
-        // centerPoint가 설정되지 않았다면 현재 오브젝트의 위치를 중심으로 설정
         if (centerPoint == null)
         {
             GameObject centerObject = new GameObject("CenterPoint");
             centerObject.transform.position = transform.position;
             centerPoint = centerObject.transform;
         }
+        previousPosition = transform.position;
     }
 
     void Update()
     {
-        // 이동 목표 지점 계산
         float targetX = movingRight ? centerPoint.position.x + distance : centerPoint.position.x - distance;
-
-        // 플랫폼 이동
         transform.position = Vector2.MoveTowards(transform.position, new Vector2(targetX, transform.position.y), speed * Time.deltaTime);
 
         // 목표 지점에 도달하면 방향 변경
@@ -37,23 +36,9 @@ public class MovingPlatform : MonoBehaviour
         {
             movingRight = !movingRight;
         }
-    }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        // 플레이어를 플랫폼의 자식으로 설정
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            collision.transform.SetParent(transform);
-        }
-    }
-
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        // 플레이어가 플랫폼에서 떨어지면 부모 설정 해제
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            collision.transform.SetParent(null);
-        }
+        // 현재 플랫폼의 속도를 계산
+        CurrentVelocity = (transform.position - previousPosition) / Time.deltaTime;
+        previousPosition = transform.position;
     }
 }

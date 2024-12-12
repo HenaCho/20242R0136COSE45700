@@ -97,6 +97,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            MovingPlatform platform = collision.gameObject.GetComponent<MovingPlatform>();
+            if (platform != null)
+            {
+            // 플랫폼의 이동 속도를 플레이어에 추가
+                transform.position += platform.CurrentVelocity * Time.deltaTime;
+            }
+        }
+    }
+
+
     void ApplyAcceleration()
     {
         // 플레이어가 아래로 떨어지는 중일 때
