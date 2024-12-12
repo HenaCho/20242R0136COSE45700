@@ -18,11 +18,15 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private UIManager uiManager;  // UIController 참조 추가
+    private Animator animator;
+    private SoundManager soundManager;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = gravityScale; // 초기 중력 스케일 설정
+        animator = GetComponent<Animator>();
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     void Update()
@@ -50,6 +54,7 @@ public class PlayerController : MonoBehaviour
         }
 
         ApplyAcceleration();
+        UpdateAnimation();
 
         // 플레이어가 특정 높이 이하로 떨어지면 죽음 처리
         if (transform.position.y < deathHeight)
@@ -67,7 +72,19 @@ public class PlayerController : MonoBehaviour
 
         rb.AddForce(jumpDirection * jumpForce, ForceMode2D.Impulse); // 힘을 이용해 점프
 
+        // 점프 방향에 따라 플레이어의 좌우 반전
+        if (jumpDirection.x < 0)
+        {
+            transform.localScale = new Vector3(-2.5f, 2.5f, 1); // 왼쪽으로 점프하면 반전
+        }
+        else if (jumpDirection.x > 0)
+        {
+            transform.localScale = new Vector3(2.5f, 2.5f, 1); // 오른쪽으로 점프하면 원래 상태
+        }
+
         isGrounded = false;
+
+        soundManager.PlaySFX(0);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -92,6 +109,31 @@ public class PlayerController : MonoBehaviour
         {
             // 점프 시나 상승 중일 때는 기본 중력만 적용
             rb.gravityScale = gravityScale;
+        }
+    }
+
+    void UpdateAnimation()
+    {
+        if (isGrounded)
+        {
+            animator.SetBool("isJumping", false);
+            animator.SetBool("isFalling", false);
+            animator.SetBool("isGrounded", true);
+        }
+        else
+        {
+            if (rb.velocity.y > 0)
+            {
+                animator.SetBool("isJumping", true);
+                animator.SetBool("isFalling", false);
+                animator.SetBool("isGrounded", false);
+            }
+            else if (rb.velocity.y < 0)
+            {
+                animator.SetBool("isJumping", false);
+                animator.SetBool("isFalling", true);
+                animator.SetBool("isGrounded", false);
+            }
         }
     }
 
