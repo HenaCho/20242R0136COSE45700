@@ -62,6 +62,7 @@ public class UIController : MonoBehaviour
     public void UpdateTrajectory(Vector2 startPoint, Vector2 jumpDirection, float maxForce)
     {
         trajectoryLine.positionCount = trajectoryResolution;
+        trajectoryLine.SetColors(Color.red, Color.red);
 
         // 점프 예상 궤적을 계산
         float timeStep = 0.1f;
@@ -73,7 +74,7 @@ public class UIController : MonoBehaviour
         {
             float time = i * timeStep;
             Vector2 displacement = velocity * time + 0.5f * Physics2D.gravity * time * time;
-            points[i] = startPoint + displacement;
+            points[i] = startPoint + displacement / 100;
         }
 
         // 궤적 라인 그리기

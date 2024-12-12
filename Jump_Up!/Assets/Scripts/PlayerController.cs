@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // 드래그 중일 때 점프 궤적을 업데이트
-        if (isDragging)
+        if (isDragging & isGrounded)
         {
             endPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition); // 드래그 끝점 설정
             uiController.UpdateTrajectory(startPoint, startPoint - endPoint, maxForce); // 예상 점프 궤적 업데이트
