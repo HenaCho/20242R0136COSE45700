@@ -10996,6 +10996,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8554116228429870767, guid: 915b4c7dab3ab234da2b1922280a4a0d, type: 3}
+      propertyPath: uiManager
+      value: 
+      objectReference: {fileID: 1931324502}
+    - target: {fileID: 8554116228429870767, guid: 915b4c7dab3ab234da2b1922280a4a0d, type: 3}
       propertyPath: uiController
       value: 
       objectReference: {fileID: 1931324502}
@@ -12364,7 +12368,7 @@ GameObject:
   - component: {fileID: 1931324498}
   - component: {fileID: 1931324497}
   - component: {fileID: 1931324502}
-  - component: {fileID: 1931324501}
+  - component: {fileID: 1931324503}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -12456,7 +12460,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!120 &1931324501
+--- !u!114 &1931324502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931324496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b67f8cd76c1b3fc4986e7be0ed1c06e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heightText: {fileID: 1514206873}
+  timerText: {fileID: 2130636545}
+  trajectoryLine: {fileID: 1931324503}
+  trajectoryResolution: 30
+  player: {fileID: 1549504266}
+  mapTop: {fileID: 861058037}
+  mapBottom: {fileID: 1718490742}
+--- !u!120 &1931324503
 LineRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -12509,7 +12532,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.10526276
+        value: 0.07236862
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -12521,8 +12544,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
-      key1: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -12546,7 +12569,7 @@ LineRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
@@ -12560,25 +12583,6 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &1931324502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1931324496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b67f8cd76c1b3fc4986e7be0ed1c06e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heightText: {fileID: 1514206873}
-  timerText: {fileID: 2130636545}
-  trajectoryLine: {fileID: 1931324501}
-  trajectoryResolution: 30
-  player: {fileID: 1549504266}
-  mapTop: {fileID: 861058037}
-  mapBottom: {fileID: 1718490742}
 --- !u!1001 &1962242202
 PrefabInstance:
   m_ObjectHideFlags: 0

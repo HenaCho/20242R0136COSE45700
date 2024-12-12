@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class UIController : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
     [Header("UI Elements")]
     [SerializeField]
@@ -62,7 +62,7 @@ public class UIController : MonoBehaviour
     public void UpdateTrajectory(Vector2 startPoint, Vector2 jumpDirection, float maxForce)
     {
         trajectoryLine.positionCount = trajectoryResolution;
-        trajectoryLine.SetColors(Color.red, Color.red);
+        trajectoryLine.SetColors(new Color32(255, 80, 80, 255), new Color32(255, 80, 80, 255));
 
         // 점프 예상 궤적을 계산
         float timeStep = 0.1f;
