@@ -9,8 +9,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 startPoint; // 드래그 시작 위치 (항상 플레이어 위치)
     private Vector2 endPoint;   // 드래그 끝 위치
     private bool isDragging = false;    // 드래그 중인지 여부
-    [SerializeField]
-    private float maxForce = 10f;   // 최대 점프 힘 (거리로 계산)
+    public float maxForce = 10f;   // 최대 점프 힘 (거리로 계산)
     private float gravityScale = 1f;    // 기본 중력 스케일
     private float fallMultiplier = 2.5f;    // 가속도 증가 비율
     private bool isGrounded = false;    // 착지 여부를 나타내는 변수
