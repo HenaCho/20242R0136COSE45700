@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float deathHeight = -10f;   // 플레이어가 죽는 높이 (y 좌표)
 
+    [SerializeField]
+    private UIManager uiManager;  // UIController 참조 추가
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -31,12 +34,19 @@ public class PlayerController : MonoBehaviour
             isDragging = true;
         }
 
+        // 드래그 중일 때 점프 궤적을 업데이트
+        if (isDragging & isGrounded)
+        {
+            endPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition); // 드래그 끝점 설정
+            uiManager.UpdateTrajectory(startPoint, startPoint - endPoint, maxForce); // 예상 점프 궤적 업데이트
+        }
+
         // 드래그를 놓으면 점프
         if (Input.GetMouseButtonUp(0) && isDragging && isGrounded)
         {
-            endPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition); // 드래그 끝점 설정
             Jump();
             isDragging = false;
+            uiManager.ClearTrajectory(); // 점프 후 궤적 제거
         }
 
         ApplyAcceleration();
