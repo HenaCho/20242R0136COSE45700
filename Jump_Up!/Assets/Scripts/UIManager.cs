@@ -16,6 +16,8 @@ public class UIManager : MonoBehaviour
     private LineRenderer trajectoryLine; // 점프 궤적 표시
     [SerializeField]
     private int trajectoryResolution = 30; // 궤적을 그릴 점의 수
+    [SerializeField]
+    private GameObject gameClearUI; // 게임 클리어 UI 오브젝트
 
     [Header("Player Settings")]
     [SerializeField]
@@ -85,5 +87,17 @@ public class UIManager : MonoBehaviour
     public void ClearTrajectory()
     {
         trajectoryLine.positionCount = 0;
+    }
+
+    public void ShowGameClearUI()
+    {
+        // 게임 클리어 UI 활성화
+        if (gameClearUI != null)
+        {
+            gameClearUI.SetActive(true);
+        }
+
+        // 게임 멈추기
+        Time.timeScale = 0;
     }
 }
